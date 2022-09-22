@@ -18,6 +18,7 @@ public:
 
 public:
 	int AlazarDLLCfg();
+	int AlazarDLLAcq();
 
 };
 

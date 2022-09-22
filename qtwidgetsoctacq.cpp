@@ -36,8 +36,8 @@ void QtWidgetsOCTAcq::Logprint(QString strlog)
     {
         plainTextEdit_log->clear();
     }
-    plainTextEdit_log->appendPlainText("\n");
-    plainTextEdit_log->insertPlainText(strlog);
+    plainTextEdit_log->appendPlainText(strlog);
+    //plainTextEdit_log->insertPlainText(strlog);
     //move scrollbar to the bottom
     QScrollBar* scrollbar = plainTextEdit_log->verticalScrollBar();
     if (scrollbar)
