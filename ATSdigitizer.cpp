@@ -161,8 +161,8 @@ int ATSdigitizer::AlazarDLLCfg()
 	}
 
 	// TODO: Configure AUX I/O connector as required tigger enable to ADMA mode
-	retCode = AlazarConfigureAuxIO(boardHandle, AUX_IN_TRIGGER_ENABLE, TRIGGER_SLOPE_POSITIVE);
-    //retCode = AlazarConfigureAuxIO(boardHandle, AUX_OUT_TRIGGER, 0);
+	//retCode = AlazarConfigureAuxIO(boardHandle, AUX_IN_TRIGGER_ENABLE, TRIGGER_SLOPE_POSITIVE);
+    retCode = AlazarConfigureAuxIO(boardHandle, AUX_OUT_TRIGGER, 0);
 	if (retCode != ApiSuccess)
 	{
 		printf("Error: AlazarConfigureAuxIO failed -- %s\n", AlazarErrorToText(retCode));
@@ -198,11 +198,11 @@ int ATSdigitizer::AlazarDLLAcq() {
     U32 postTriggerSamples = 1280;
 
     // TODO: Specify the number of records per DMA buffer
-    U32 recordsPerBuffer = 300;
+    U32 recordsPerBuffer = 300;//300
 
 
     // TODO: Specify the total number of buffers to capture
-    U32 buffersPerAcquisition = 100;//Set to 0x7fffffff to acquire indefinitely until the acquisition is aborted
+    U32 buffersPerAcquisition = 1200;//100//Set to 0x7fffffff to acquire indefinitely until the acquisition is aborted
 
     // TODO: Select which channels to capture (A, B, or both)
     U32 channelMask = CHANNEL_A;

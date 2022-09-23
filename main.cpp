@@ -2,6 +2,7 @@
 #include <QtWidgets/QApplication>
 #include "ATSdigitizer.h"
 #include "stdio.h"
+#include "NIDAQmx.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,20 +10,21 @@ int main(int argc, char *argv[])
     QtWidgetsOCTAcq w;
     w.Logprint("Program begin...");
     w.show();
-    
-    ATSdigitizer d;
-   
-    w.Logprint("Digitizer init...");
-    d.AlazarDLLCfg();
-    w.Logprint("Digitizer cfg...");
-    d.AlazarDLLAcq();
-    w.Logprint("Digitizer acq...");
-    
-    w.Logprint("Program begin2...");
-    a.exec();
-    w.Logprint("Program begin3...");
-    w.show();
+    w.Logprint("NIdaq init");
+    int         error = 0;
+    TaskHandle  taskHandle = 0;
+    char        errBuff[2048] = { '\0' };
 
+    DAQmxCreateTask("", &taskHandle);
+    DAQmxCreateCOPulseChanFreq(taskHandle, "Dev1/ctr0", "", DAQmx_Val_Hz, DAQmx_Val_Low, 0.0, 1000.0, 0.5);
+    DAQmxConnectTerms("Dev1/ctr0", "Dev1/PFI3", DAQmx_Val_DoNotInvertPolarity);
+    DAQmxCfgDigEdgeStartTrig(taskHandle, "/Dev1/PFI1", DAQmx_Val_Rising);
+    DAQmxCfgImplicitTiming(taskHandle, DAQmx_Val_ContSamps, 1000);
+    w.Logprint("NIdaq config");
+    //DAQmxRegisterDoneEvent(taskHandle, 0, DoneCallback, NULL);
+    DAQmxStartTask(taskHandle); 
+
+    a.exec();
     return 1;
 }
 int main01(int argc, char* argv[]) {

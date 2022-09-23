@@ -19,4 +19,6 @@ public:
 private:
     Ui::QtWidgetsOCTAcqClass ui;
     
+public slots:
+    void on_pushAcq();
 };
